@@ -1,66 +1,123 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <title>CODOX - Login</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ingreso – Ortesis Inteligente</title>
 
     <style>
-        .login-box {
-            max-width: 350px;
-            margin: auto;
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #e8f0ff, #f0f7ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Contenedor del login */
+        .login-card {
+            width: 350px;
             padding: 40px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 30px rgba(0, 80, 180, 0.15);
             text-align: center;
+            border: 1px solid rgba(180, 200, 255, 0.4);
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #003a75;
+            font-weight: 700;
+            font-size: 1.7rem;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #4c6a8b;
+            margin-bottom: 25px;
         }
 
         input {
             width: 100%;
             padding: 12px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #b7c8e6;
+            background: #f7faff;
+            font-size: 0.95rem;
+            color: #003a75;
         }
 
-        .button {
+        input:focus {
+            outline: none;
+            border-color: #4f8cff;
+            box-shadow: 0 0 6px rgba(79, 140, 255, 0.3);
+        }
+
+        button {
             width: 100%;
-            margin-top: 20px;
+            padding: 12px;
+            margin-top: 15px;
+            background: linear-gradient(135deg, #4f8cff, #0059c9);
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.25s;
         }
 
-        #bg {
-            filter: blur(4px);
+        button:hover {
+            background: linear-gradient(135deg, #6aa4ff, #006be6);
+        }
+
+        #error {
+            margin-top: 10px;
+            color: #b70000;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        /* Elementos decorativos tipo "clínico futurista" */
+        .orb {
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            background: radial-gradient(circle, rgba(120,170,255,0.45), rgba(120,170,255,0));
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float 6s ease-in-out infinite;
+        }
+        .orb.a { top: -40px; left: -40px; }
+        .orb.b { bottom: -40px; right: -40px; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
     </style>
 </head>
+<body>
 
-<body class="is-preload">
-    <div id="wrapper">
+    <!-- Luces decorativas futuristas -->
+    <div class="orb a"></div>
+    <div class="orb b"></div>
 
-        <header id="header">
-            <div class="content">
-                <div class="inner">
-                    <h1>CODOX</h1>
-                    <p>Ingreso del terapeuta</p>
-                </div>
-            </div>
-        </header>
+    <div class="login-card">
+        <h2>Ortesis Inteligente</h2>
+        <div class="subtitle">Ingreso para Terapeutas</div>
 
-        <div class="login-box">
-            <input type="text" id="user" placeholder="Usuario">
-            <input type="password" id="pass" placeholder="Contraseña">
+        <input type="text" id="user" placeholder="Usuario" />
+        <input type="password" id="pass" placeholder="Contraseña" />
 
-            <a class="button primary" onclick="login()">Ingresar</a>
-            <p id="msg" style="color: #ff6666; margin-top: 15px;"></p>
-        </div>
-
+        <button onclick="login()">Ingresar</button>
+        <div id="error">Usuario o contraseña incorrectos</div>
     </div>
-
-    <div id="bg"></div>
 
     <script>
         function login() {
@@ -70,10 +127,9 @@
             if (user === "terapeuta" && pass === "1234") {
                 window.location.href = "app.html";
             } else {
-                document.getElementById("msg").textContent = "Credenciales incorrectas.";
+                document.getElementById("error").style.display = "block";
             }
         }
     </script>
-
 </body>
 </html>
