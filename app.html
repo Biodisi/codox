@@ -239,10 +239,36 @@
         				chart.data.labels.push(chart.data.labels.length);
         				chart.update();
     				}
-				});
+				};
+			});
 			</script>
+			<script>
+			document.getElementById("btnGuardarSesion").addEventListener("click", function () {
+    
+    			let pacienteIndex = localStorage.getItem("pacienteActual");
+    			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
+
+    			if (!pacientes[pacienteIndex].sesiones) {
+        			pacientes[pacienteIndex].sesiones = [];
+    			}
+
+    			pacientes[pacienteIndex].sesiones.push({
+        			fecha: new Date().toLocaleString(),
+        			datosAngulo: datosAngulo,
+        			datosFuerza: datosFuerza,
+       		 		maxAngulo: maxAngulo,
+        			maxFuerza: maxFuerza
+    			});
+
+    			localStorage.setItem("pacientes", JSON.stringify(pacientes));
+
+    			alert("Sesión guardada correctamente.");
+			});
+			</script>
+
 	</body>
 </html>
+
 
 
 
