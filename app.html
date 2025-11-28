@@ -14,17 +14,14 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
-
 		<!-- Wrapper -->
 			<div id="wrapper">
-
 				<!-- Header -->
 					<header id="header">
 						<div class="logo">
 							<div class="logo">
 								<img src="images/logo.png" style="width:80px; height:auto;" alt="CODOX Logo">
 							</div>
-
 						</div>
 						<div class="content">
 							<div class="inner">
@@ -42,7 +39,6 @@
 							</ul>
 						</nav>
 					</header>
-
 				<!-- Main -->
 					<div id="main">
 						<article id="intro">
@@ -68,8 +64,6 @@
     						</p>
 						</section>
 						</article>
-
-
 									<!-- ================= LISTA DE PACIENTES ================= -->
 						<article id="work">
 						<section id="lista-pacientes" class="panel">
@@ -77,12 +71,9 @@
     						<ul id="contenedorPacientes"></ul>
 						</section>
 						</article>
-
 			<!-- ================= DETALLE DE PACIENTE ================= -->
-						
 						<article id="detalle-paciente" class="panel">
     						<h2 id="tituloPaciente"></h2>
-
     						<canvas id="grafica" width="400" height="200"></canvas>
 
     						<p><strong>Ángulo máximo:</strong> <span id="maxAngulo">0</span></p>
@@ -90,45 +81,27 @@
 
     						<button id="btnGuardarSesion">Guardar sesión</button>
 						</article>
-
-
-						
-						
-    		
-<!--COMIENZO DEL TXT-->
-		
-						
-
 						<!-- About -->
 							<article id="about">
 								<h2 class="major">Seguimiento</h2>
     							<ul id="listaSesiones"></ul>
 							</article>
-								
-
 						<!-- Contact -->
 							<article id="ajustes">
   								<h2>Ajustes</h2>
-  
   								<p><strong>Estado de conexión:</strong> 
      								<span id="estadoConexion">🔴 No conectado</span>
   								</p>
-
   								<button id="btnConectar">Verificar conexión</button>
 							</article>
-
 					</div>
-
 				<!-- Footer -->
 					<footer id="footer">
 						<p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
 					</footer>
-
 			</div>
-
 		<!-- BG -->
 			<div id="bg"></div>
-
 		<!-- Scripts -->
 			<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
@@ -140,29 +113,23 @@
 /* ========== GUARDAR PACIENTE ========== */
 			document.getElementById("formPaciente").addEventListener("submit", function(e) {
     			e.preventDefault();
-
     			const nombre = document.getElementById("nombrePaciente").value;
     			const edad = document.getElementById("edadPaciente").value;
     			const obs = document.getElementById("obsPaciente").value;
-
     // cargar lista
     			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
-
     // agregar nuevo
     			pacientes.push({
         			nombre: nombre,
         			edad: edad,
         			obs: obs
     			});
-
     // guardar
     			localStorage.setItem("pacientes", JSON.stringify(pacientes));
-
     // mensaje
     			document.getElementById("msgGuardado").style.display = "block";
     			this.reset();
 			});
-
 /* ========== MOSTRAR LISTA DE PACIENTES ========== */
 			function cargarPacientes() {
     			let contenedor = document.getElementById("contenedorPacientes");
@@ -280,19 +247,14 @@
 
         			document.getElementById("maxAngulo").textContent = maxAngulo;
         			document.getElementById("maxFuerza").textContent = maxFuerza;
-
         			if (chart) {
             			chart.data.labels.push(chart.data.labels.length);
             			chart.update();
         			}
     			};
 			}
-
 			document.getElementById("btnConectar").addEventListener("click", conectarESP32);
 			</script>
-
-
-			
 			<script>
 			document.getElementById("btnGuardarSesion").addEventListener("click", function () {
     
@@ -302,7 +264,6 @@
     			if (!pacientes[id].sesiones) {
         			pacientes[id].sesiones = [];
     			}
-
     			pacientes[id].sesiones.push({
         			fecha: new Date().toLocaleString(),
         			datosAngulo: datosAngulo,
@@ -310,9 +271,7 @@
        		 		maxAngulo: maxAngulo,
         			maxFuerza: maxFuerza
     			});
-
     			localStorage.setItem("pacientes", JSON.stringify(pacientes));
-
     			alert("Sesión guardada correctamente.");
 			});
 			</script>
@@ -335,7 +294,6 @@
         			cont.innerHTML = "<p>No hay sesiones guardadas para este paciente.</p>";
         			return;
     			}
-
     			sesiones.forEach(s => {
         			let li = document.createElement("li");
         			li.innerHTML = `
@@ -345,38 +303,8 @@
         			`;
         			cont.appendChild(li);
     			});
-
 			});
 			</script>
-
-
-
 	</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
