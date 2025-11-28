@@ -269,17 +269,19 @@
 			document.querySelector("a[href='#about']").addEventListener("click", function () {
 
     			const id = localStorage.getItem("pacienteActual");
+
     			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
 
-    			let p = pacientes[id];
+    // Si no hay pacientes aún, salir
+    			if (!pacientes[id]) return;
 
-    			let sesiones = p.sesiones || [];
+    			let sesiones = pacientes[id].sesiones || [];
 
     			let cont = document.getElementById("listaSesiones");
     			cont.innerHTML = "";
 
     			if (sesiones.length === 0) {
-        			cont.innerHTML = "<p>Este paciente aún no tiene sesiones guardadas.</p>";
+        			cont.innerHTML = "<p>No hay sesiones guardadas para este paciente.</p>";
         			return;
     			}
 
@@ -292,12 +294,15 @@
         			`;
         			cont.appendChild(li);
     			});
+
 			});
 			</script>
 
 
+
 	</body>
 </html>
+
 
 
 
