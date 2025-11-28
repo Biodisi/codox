@@ -45,18 +45,42 @@
 
 				<!-- Main -->
 					<div id="main">
+						<!-- ================= NUEVA TERAPIA ================= -->
+						<section id="nueva-terapia" class="panel">
+   							<h2>Nueva Terapia</h2>
 
-						<!-- Intro -->
-							<article id="intro">
-								<h2 class="major">Nueva terapia</h2>
-								<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-								<p>Ingresar datos del nuevo paciente</p>
-								<input type="text" id="user" placeholder="Usuario" />
-       		 					<input type="password" id="pass" placeholder="Contraseña" />
+    						<form id="formPaciente">
+        						<label>Nombre del paciente:</label>
+        						<input type="text" id="nombrePaciente" required>
 
-        						<button onclick="login()">Ingresar</button>
-        						<div id="error">Usuario o contraseña incorrectos</div>
-							</article>
+        						<label>Edad:</label>
+        						<input type="number" id="edadPaciente">
+
+        						<label>Observaciones:</label>
+       	 						<textarea id="obsPaciente"></textarea>
+
+        						<button type="submit">Guardar Paciente</button>
+    						</form>
+
+    						<p id="msgGuardado" style="display:none; color:green;">
+        						Paciente guardado correctamente.
+    						</p>
+						</section>
+
+									<!-- ================= LISTA DE PACIENTES ================= -->
+						<section id="lista-pacientes" class="panel">
+   			 				<h2>Pacientes Registrados</h2>
+    						<ul id="contenedorPacientes"></ul>
+						</section>
+
+			<!-- ================= DETALLE DE PACIENTE ================= -->
+						<section id="detalle-paciente" class="panel">
+    						<h2 id="tituloPaciente"></h2>
+    						<p>Ventana en blanco lista para rellenar.</p>
+						</section>
+
+
+						
 						
     		
 <!--COMIENZO DEL TXT-->
@@ -366,9 +390,73 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+/* ========== GUARDAR PACIENTE ========== */
+			document.getElementById("formPaciente").addEventListener("submit", function(e) {
+    			e.preventDefault();
+
+    			const nombre = document.getElementById("nombrePaciente").value;
+    			const edad = document.getElementById("edadPaciente").value;
+    			const obs = document.getElementById("obsPaciente").value;
+
+    // cargar lista
+    			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
+
+    // agregar nuevo
+    			pacientes.push({
+        			nombre: nombre,
+        			edad: edad,
+        			obs: obs
+    			});
+
+    // guardar
+    			localStorage.setItem("pacientes", JSON.stringify(pacientes));
+
+    // mensaje
+    			document.getElementById("msgGuardado").style.display = "block";
+    			this.reset();
+			});
+
+/* ========== MOSTRAR LISTA DE PACIENTES ========== */
+			function cargarPacientes() {
+    			let contenedor = document.getElementById("contenedorPacientes");
+    			contenedor.innerHTML = "";
+
+    			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
+
+    			pacientes.forEach((p, index) => {
+        			let li = document.createElement("li");
+        			li.textContent = p.nombre;
+        			li.style.cursor = "pointer";
+        			li.onclick = () => mostrarDetalle(index);
+        			contenedor.appendChild(li);
+    			});
+			}
+
+/* ========== MOSTRAR DETALLE ========== */
+			function mostrarDetalle(index) {
+   	 			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
+    			let p = pacientes[index];
+
+    			document.getElementById("tituloPaciente").textContent = p.nombre;
+
+    // Mostrar panel
+    			mostrarPanel("detalle-paciente");
+			}
+
+/* ========== CAMBIO ENTRE SECCIONES ========== */
+			function mostrarPanel(id) {
+    			document.querySelectorAll(".panel").forEach(p => p.style.display = "none");
+    			document.getElementById(id).style.display = "block";
+			}
+
+/* Cargar pacientes cuando entres a lista */
+			document.querySelector("a[href='#lista-pacientes']").addEventListener("click", cargarPacientes);
+			</script>
 
 	</body>
 </html>
+
 
 
 
