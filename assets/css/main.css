@@ -1667,34 +1667,34 @@ input, select, textarea {
 
 /* Color general para TODO el texto */
 body, input, select, textarea, h1, h2, h3, h4, h5, h6, p, label, span, li, a, strong, b, em, i, blockquote {
-    color: #001f3f !important;
+    color: #ffffff !important;
 }
 
 /* Color de los bordes y líneas */
 hr, .divider, .line {
-    border-color: #001f3f !important;
+    border-color: #ffffff !important;
 }
 
 /* Formularios */
 input, textarea, select {
-    color: #001f3f !important;
-    border-color: #001f3f !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
 }
 
 /* Enlaces */
 a {
-    color: #001f3f !important;
+    color: #ffffff !important;
 }
 
 /* Hover opcional (más claro) */
 a:hover {
-    color: #003f7f !important;
+    color: #ffffff !important;
 }
 
 /* COLOR PARA TODAS LAS LÍNEAS DE LA PÁGINA */
 hr,
 *, *::before, *::after {
-    border-color: #001f3f !important; /* azul marino */
+    border-color: #ffffff !important; /* azul marino */
 
 }
 /* === FONDO BLANCO GLOBAL === */
@@ -1743,6 +1743,7 @@ html, body {
     border-radius: 6px;
     background: #e0e0e0;
 }
+
 
 
 
