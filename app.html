@@ -266,27 +266,39 @@
 			});
 			</script>
 			<script>
-				document.querySelector("a[href='#about']").addEventListener("click", function () {
-    				const id = localStorage.getItem("pacienteActual");
-    				let sesiones = JSON.parse(localStorage.getItem("sesiones_" + id)) || [];
+			document.querySelector("a[href='#about']").addEventListener("click", function () {
 
-    				let cont = document.getElementById("listaSesiones");
-    				cont.innerHTML = "";
+    			const id = localStorage.getItem("pacienteActual");
+    			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
 
-    				sesiones.forEach(s => {
-        				let li = document.createElement("li");
-        				li.innerHTML = `
-            				<strong>${s.fecha}</strong><br>
-            				Max Ángulo: ${s.maxAngulo}<br>
-            				Max Fuerza: ${s.maxFuerza}
-        				`;
-       	 				cont.appendChild(li);
-    				});
-				});
+    			let p = pacientes[id];
+
+    			let sesiones = p.sesiones || [];
+
+    			let cont = document.getElementById("listaSesiones");
+    			cont.innerHTML = "";
+
+    			if (sesiones.length === 0) {
+        			cont.innerHTML = "<p>Este paciente aún no tiene sesiones guardadas.</p>";
+        			return;
+    			}
+
+    			sesiones.forEach(s => {
+        			let li = document.createElement("li");
+        			li.innerHTML = `
+            			<strong>${s.fecha}</strong><br>
+            			Máx Ángulo: ${s.maxAngulo}<br>
+            			Máx Fuerza: ${s.maxFuerza}
+        			`;
+        			cont.appendChild(li);
+    			});
+			});
 			</script>
+
 
 	</body>
 </html>
+
 
 
 
