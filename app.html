@@ -101,10 +101,10 @@
 
 						<!-- About -->
 							<article id="about">
-								<h2 class="major">About</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
-								<p>Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices. Aliquam libero et malesuada fames ac ante ipsum primis in faucibus. Cras viverra ligula sit amet ex mollis mattis lorem ipsum dolor sit amet.</p>
+								<h2 class="major">Seguimiento</h2>
+    							<ul id="listaSesiones"></ul>
 							</article>
+								
 
 						<!-- Contact -->
 							<article id="ajustes">
@@ -265,9 +265,29 @@
     			alert("Sesión guardada correctamente.");
 			});
 			</script>
+			<script>
+				document.querySelector("a[href='#about']").addEventListener("click", function () {
+    				const id = localStorage.getItem("pacienteActual");
+    				let sesiones = JSON.parse(localStorage.getItem("sesiones_" + id)) || [];
+
+    				let cont = document.getElementById("listaSesiones");
+    				cont.innerHTML = "";
+
+    				sesiones.forEach(s => {
+        				let li = document.createElement("li");
+        				li.innerHTML = `
+            				<strong>${s.fecha}</strong><br>
+            				Max Ángulo: ${s.maxAngulo}<br>
+            				Max Fuerza: ${s.maxFuerza}
+        				`;
+       	 				cont.appendChild(li);
+    				});
+				});
+			</script>
 
 	</body>
 </html>
+
 
 
 
