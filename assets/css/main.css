@@ -1761,4 +1761,18 @@ header nav ul li a {
     white-space: nowrap; /* Evita que el texto se rompa */
 }
 
+header nav ul li {
+    border-right: none; /* Elimina la línea vertical que atraviesa */
+    margin: 0; /* Asegura que no haya espacio extra */
+}
+
+header nav ul li:last-child {
+    border-right: none; /* Asegura que el último botón no tenga borde */
+}
+
+header nav ul li a {
+    display: inline-block;
+    padding: 0.5em 1em;
+}
+
 
