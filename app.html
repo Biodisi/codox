@@ -206,6 +206,9 @@
 
 			function crearGrafica() {
     			const ctx = document.getElementById("grafica").getContext("2d");
+				if (chart) {
+        			chart.destroy();
+    			}
 
     			chart = new Chart(ctx, {
         			type: "line",
@@ -231,59 +234,76 @@
    	 			});
 			}
 			</script>
-
 			<script>
 			let socket = null;
+			let intentoReconnect = null;
 
-			document.getElementById("btnConectar").addEventListener("click", function () {
+			function conectarESP32() {
+    			if (socket && socket.readyState === WebSocket.OPEN) return;
 
     			socket = new WebSocket("ws://192.168.4.1:81");
 
     			socket.onopen = function () {
-        			document.getElementById("estadoConexion").textContent = "🟢 Conectado";
+       	 			document.getElementById("estadoConexion").textContent = "🟢 Conectado";
         			document.getElementById("estadoConexion").style.color = "green";
+
+        			if (intentoReconnect) {
+            			clearInterval(intentoReconnect);
+	            		intentoReconnect = null;
+        			}
     			};
 
     			socket.onerror = function () {
-       	 			document.getElementById("estadoConexion").textContent = "🔴 No conectado";
+        			document.getElementById("estadoConexion").textContent = "🔴 Error";
         			document.getElementById("estadoConexion").style.color = "red";
     			};
 
     			socket.onclose = function () {
         			document.getElementById("estadoConexion").textContent = "🔴 Desconectado";
         			document.getElementById("estadoConexion").style.color = "red";
+
+        // Intento automático cada 3 segundos
+        			if (!intentoReconnect) {
+            			intentoReconnect = setInterval(conectarESP32, 3000);
+        			}
     			};
 
     			socket.onmessage = function (event) {
-    				let data = JSON.parse(event.data);
-		
-    				datosAngulo.push(data.angulo);
-   			 		datosFuerza.push(data.fuerza);
 
-    				if (data.angulo > maxAngulo) maxAngulo = data.angulo;
-    				if (data.fuerza > maxFuerza) maxFuerza = data.fuerza;
+        			let data = JSON.parse(event.data);
 
-    				document.getElementById("maxAngulo").textContent = maxAngulo;
-    				document.getElementById("maxFuerza").textContent = maxFuerza;
+        			datosAngulo.push(data.angulo);
+        			datosFuerza.push(data.fuerza);
 
-    				if (chart) {
-        				chart.data.labels.push(chart.data.labels.length);
-        				chart.update();
-    				}
-				};
-			});
+        			if (data.angulo > maxAngulo) maxAngulo = data.angulo;
+        			if (data.fuerza > maxFuerza) maxFuerza = data.fuerza;
+
+        			document.getElementById("maxAngulo").textContent = maxAngulo;
+        			document.getElementById("maxFuerza").textContent = maxFuerza;
+
+        			if (chart) {
+            			chart.data.labels.push(chart.data.labels.length);
+            			chart.update();
+        			}
+    			};
+			}
+
+			document.getElementById("btnConectar").addEventListener("click", conectarESP32);
 			</script>
+
+
+			
 			<script>
 			document.getElementById("btnGuardarSesion").addEventListener("click", function () {
     
-    			let pacienteIndex = localStorage.getItem("pacienteActual");
+    			let id = localStorage.getItem("pacienteActual");
     			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
 
-    			if (!pacientes[pacienteIndex].sesiones) {
-        			pacientes[pacienteIndex].sesiones = [];
+    			if (!pacientes[id].sesiones) {
+        			pacientes[id].sesiones = [];
     			}
 
-    			pacientes[pacienteIndex].sesiones.push({
+    			pacientes[id].sesiones.push({
         			fecha: new Date().toLocaleString(),
         			datosAngulo: datosAngulo,
         			datosFuerza: datosFuerza,
@@ -333,6 +353,7 @@
 
 	</body>
 </html>
+
 
 
 
