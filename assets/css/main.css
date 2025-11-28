@@ -1742,4 +1742,23 @@ html, body {
     padding: 5px 8px;
     border-radius: 6px;
     background: #ffffff;
+}}
+header nav ul {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los botones se ajusten si hay poco espacio */
+    justify-content: space-around; /* Distribuye los botones uniformemente */
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
+
+header nav ul li a {
+    display: block;
+    max-width: 100%; /* Evita que se salgan del contenedor */
+    box-sizing: border-box;
+    text-align: center;
+    padding: 0.5em 1em; /* Ajusta el padding según tu gusto */
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
+
+
