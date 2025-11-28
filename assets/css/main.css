@@ -1690,3 +1690,10 @@ a {
 a:hover {
     color: #003f7f !important;
 }
+
+/* COLOR PARA TODAS LAS LÍNEAS DE LA PÁGINA */
+hr,
+*, *::before, *::after {
+    border-color: #001f3f !important; /* azul marino */
+}
+
