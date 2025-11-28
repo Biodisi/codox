@@ -1774,5 +1774,12 @@ header nav ul li a {
     display: inline-block;
     padding: 0.5em 1em;
 }
+header nav ul li a {
+    white-space: normal;  /* Permite que el texto haga salto de línea */
+    text-align: center;   /* Centra el texto dentro del botón */
+    width: 120px;         /* Ajusta ancho del botón */
+}
+
+
 
 
