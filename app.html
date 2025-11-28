@@ -37,7 +37,7 @@
 								<li><a href="#intro">Nueva terapia</a></li>
 								<li><a href="#work">Continuar terapia</a></li>
 								<li><a href="#about">Seguimiento</a></li>
-								<li><a href="#contact">Ajustes</a></li>
+								<li><a href="#ajustes">Ajustes</a></li>
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
 						</nav>
@@ -101,34 +101,14 @@
 							</article>
 
 						<!-- Contact -->
-							<article id="contact">
-								<h2 class="major">Contact</h2>
-								<form method="post" action="#">
-									<div class="fields">
-										<div class="field half">
-											<label for="name">Name</label>
-											<input type="text" name="name" id="name" />
-										</div>
-										<div class="field half">
-											<label for="email">Email</label>
-											<input type="text" name="email" id="email" />
-										</div>
-										<div class="field">
-											<label for="message">Message</label>
-											<textarea name="message" id="message" rows="4"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="primary" /></li>
-										<li><input type="reset" value="Reset" /></li>
-									</ul>
-								</form>
-								<ul class="icons">
-									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-								</ul>
+							<article id="ajustes">
+  								<h2>Ajustes</h2>
+  
+  								<p><strong>Estado de conexión:</strong> 
+     								<span id="estadoConexion">🔴 No conectado</span>
+  								</p>
+
+  								<button id="btnConectar">Verificar conexión</button>
 							</article>
 
 						<!-- Elements -->
@@ -449,9 +429,42 @@
 /* Cargar pacientes cuando entres a lista */
 			document.querySelector("a[href='#work']").addEventListener("click", cargarPacientes);
 			</script>
+			<script>
+			let socket = null;
 
+			document.getElementById("btnConectar").addEventListener("click", function () {
+
+    			socket = new WebSocket("ws://192.168.4.1:81");
+
+    			socket.onopen = function () {
+        			document.getElementById("estadoConexion").textContent = "🟢 Conectado";
+        			document.getElementById("estadoConexion").style.color = "green";
+    			};
+
+    			socket.onerror = function () {
+       	 			document.getElementById("estadoConexion").textContent = "🔴 No conectado";
+        			document.getElementById("estadoConexion").style.color = "red";
+    			};
+
+    			socket.onclose = function () {
+        			document.getElementById("estadoConexion").textContent = "🔴 Desconectado";
+        			document.getElementById("estadoConexion").style.color = "red";
+    			};
+
+    			socket.onmessage = function (event) {
+        			console.log("Datos recibidos:", event.data);
+        			let data = JSON.parse(event.data);
+
+        // Variables globales que luego irán a tu gráfica:
+        			window.ultimoAngulo = data.angulo;
+        			window.ultimaFuerza = data.fuerza;
+    			};
+
+			});
+			</script>
 	</body>
 </html>
+
 
 
 
