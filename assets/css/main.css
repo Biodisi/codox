@@ -1718,5 +1718,14 @@ html, body {
     background: #ffffff !important;
 }
 
+/* ... aquí está todo tu main.css ... */
+
+/* === Personalización de CODOX === */
+#estadoConexion {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+
 
 
