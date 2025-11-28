@@ -202,6 +202,37 @@
 			document.querySelector("a[href='#work']").addEventListener("click", cargarPacientes);
 			</script>
 			<script>
+			let chart = null;
+
+			function crearGrafica() {
+    			const ctx = document.getElementById("grafica").getContext("2d");
+
+    			chart = new Chart(ctx, {
+        			type: "line",
+        			data: {
+            			labels: [],
+            			datasets: [
+                			{
+                    			label: "Ángulo (°)",
+                    			data: datosAngulo,
+                    			borderWidth: 2
+                			},
+                			{
+                    			label: "Fuerza (N)",
+                    			data: datosFuerza,
+                    			borderWidth: 2
+                			}
+            			]
+        			},
+        			options: {
+            			responsive: true,
+            			animation: false
+        			}
+   	 			});
+			}
+			</script>
+
+			<script>
 			let socket = null;
 
 			document.getElementById("btnConectar").addEventListener("click", function () {
@@ -302,6 +333,7 @@
 
 	</body>
 </html>
+
 
 
 
