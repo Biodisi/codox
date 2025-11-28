@@ -1660,3 +1660,33 @@ input, select, textarea {
 			opacity: 0;
 		}
 
+
+/* ===============================
+   OVERRIDE GLOBAL DE COLOR
+   =============================== */
+
+/* Color general para TODO el texto */
+body, input, select, textarea, h1, h2, h3, h4, h5, h6, p, label, span, li, a, strong, b, em, i, blockquote {
+    color: #001f3f !important;
+}
+
+/* Color de los bordes y líneas */
+hr, .divider, .line {
+    border-color: #001f3f !important;
+}
+
+/* Formularios */
+input, textarea, select {
+    color: #001f3f !important;
+    border-color: #001f3f !important;
+}
+
+/* Enlaces */
+a {
+    color: #001f3f !important;
+}
+
+/* Hover opcional (más claro) */
+a:hover {
+    color: #003f7f !important;
+}
