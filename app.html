@@ -181,14 +181,20 @@
 
 /* ========== MOSTRAR DETALLE ========== */
 			function mostrarDetalle(index) {
-   	 			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
+    			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
     			let p = pacientes[index];
 
     			document.getElementById("tituloPaciente").textContent = p.nombre;
 
-    // Mostrar panel
-    			location.hash="#detalle-paciente";
+    			datosAngulo = [];
+    			datosFuerza = [];
+    			maxAngulo = 0;
+    			maxFuerza = 0;
 
+    			setTimeout(crearGrafica, 300);
+
+    			location.hash = "#detalle-paciente";
+    			localStorage.setItem("pacienteActual", index);
 			}
 
 /* ========== CAMBIO ENTRE SECCIONES ========== */
@@ -218,18 +224,26 @@
     			};
 
     			socket.onmessage = function (event) {
-        			console.log("Datos recibidos:", event.data);
-        			let data = JSON.parse(event.data);
+    				let data = JSON.parse(event.data);
+		
+    				datosAngulo.push(data.angulo);
+   			 		datosFuerza.push(data.fuerza);
 
-        // Variables globales que luego irán a tu gráfica:
-        			window.ultimoAngulo = data.angulo;
-        			window.ultimaFuerza = data.fuerza;
-    			};
+    				if (data.angulo > maxAngulo) maxAngulo = data.angulo;
+    				if (data.fuerza > maxFuerza) maxFuerza = data.fuerza;
 
-			});
+    				document.getElementById("maxAngulo").textContent = maxAngulo;
+    				document.getElementById("maxFuerza").textContent = maxFuerza;
+
+    				if (chart) {
+        				chart.data.labels.push(chart.data.labels.length);
+        				chart.update();
+    				}
+				});
 			</script>
 	</body>
 </html>
+
 
 
 
