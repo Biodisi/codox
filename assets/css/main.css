@@ -1695,5 +1695,28 @@ a:hover {
 hr,
 *, *::before, *::after {
     border-color: #001f3f !important; /* azul marino */
+
 }
+/* === FONDO BLANCO GLOBAL === */
+html, body {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+/* Si tu plantilla usa secciones tipo 'wrapper' */
+.wrapper {
+    background: #ffffff !important;
+}
+
+/* Si existe un overlay o animación oscura */
+.bg-img,
+.bg-overlay,
+#bg,
+#background,
+.background,
+.overlay {
+    background: #ffffff !important;
+}
+
+
 
