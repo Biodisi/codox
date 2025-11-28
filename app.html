@@ -79,10 +79,11 @@
 						</article>
 
 			<!-- ================= DETALLE DE PACIENTE ================= -->
-						<section id="detalle-paciente" class="panel">
+						
+						<article id="detalle-paciente" class="panel">
     						<h2 id="tituloPaciente"></h2>
     						<p>Ventana en blanco lista para rellenar.</p>
-						</section>
+						</article>
 
 
 						
@@ -440,21 +441,18 @@
     			document.getElementById("tituloPaciente").textContent = p.nombre;
 
     // Mostrar panel
-    			mostrarPanel("detalle-paciente");
+    			location.hash="#detalle-paciente";
+
 			}
 
 /* ========== CAMBIO ENTRE SECCIONES ========== */
-			function mostrarPanel(id) {
-    			document.querySelectorAll(".panel").forEach(p => p.style.display = "none");
-    			document.getElementById(id).style.display = "block";
-			}
-
 /* Cargar pacientes cuando entres a lista */
-			document.querySelector("a[href='#lista-pacientes']").addEventListener("click", cargarPacientes);
+			document.querySelector("a[href='#work']").addEventListener("click", cargarPacientes);
 			</script>
 
 	</body>
 </html>
+
 
 
 
