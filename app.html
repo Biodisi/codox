@@ -293,7 +293,6 @@
         			maxFuerza: maxFuerza
     			});
     			localStorage.setItem("pacientes", JSON.stringify(pacientes));
-    			alert("Sesión guardada correctamente.");
 				db.ref("sesiones").push({
     				paciente: pacientes[id].nombre,
     				fecha: new Date().toLocaleString(),
@@ -334,6 +333,7 @@
 			</script>
 	</body>
 </html>
+
 
 
 
