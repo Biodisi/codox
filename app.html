@@ -270,6 +270,14 @@
 
         			document.getElementById("maxAngulo").textContent = maxAngulo;
         			document.getElementById("maxFuerza").textContent = maxFuerza;
+					// Guardar muestra en firebase en tiempo real
+					db.ref("streaming").push({
+  						timestamp: Date.now(),
+  						paciente: document.getElementById("tituloPaciente").textContent,
+  						angulo: data.angulo,
+  						fuerza: data.fuerza
+					});
+
         			if (chart) {
             			chart.data.labels.push(chart.data.labels.length);
             			chart.update();
@@ -333,6 +341,7 @@
 			</script>
 	</body>
 </html>
+
 
 
 
