@@ -103,25 +103,18 @@
 			<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 
 			<script>
-			// Import the functions you need from the SDKs you need
-			import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 			const firebaseConfig = {
   				apiKey: "AIzaSyBFF-56jlnf9ZuKmcOBmpwTiZ0gJRStZ58",
   				authDomain: "codox-c2511.firebaseapp.com",
   				projectId: "codox-c2511",
-  				storageBucket: "codox-c2511.firebasestorage.app",
+  				storageBucket: "codox-c2511.appspot.com",
   				messagingSenderId: "150748569576",
   				appId: "1:150748569576:web:944c7af859d1dfdcd48e5d"
 				};
-
-// Initialize Firebase
-			const app = initializeApp(firebaseConfig);
 			firebase.initializeApp(firebaseConfig);
 			const db = firebase.database();
+			console.log("Firebase OK:", firebase.app().name);
+
 			</script>
 			<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
@@ -348,6 +341,7 @@
 			</script>
 	</body>
 </html>
+
 
 
 
