@@ -98,6 +98,24 @@
 		<!-- BG -->
 			<div id="bg"></div>
 		<!-- Scripts -->
+			<!-- ================= FIREBASE ================= -->
+			<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
+			<script>
+			const firebaseConfig = {
+  				apiKey: "TU_API_KEY",
+  				authDomain: "TU_AUTH_DOMAIN",
+  				databaseURL: "TU_DATABASE_URL",
+  				projectId: "TU_PROJECT_ID",
+  				storageBucket: "TU_BUCKET",
+  				messagingSenderId: "TU_SENDER",
+  				appId: "TU_APP"
+			};
+
+			firebase.initializeApp(firebaseConfig);
+			const db = firebase.database();
+			</script>
 			<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
@@ -121,6 +139,12 @@
     			});
     // guardar
     			localStorage.setItem("pacientes", JSON.stringify(pacientes));
+				db.ref("pacientes").push({
+    				nombre,
+    				edad,
+    				obs
+				});
+
     // mensaje
     			document.getElementById("msgGuardado").style.display = "block";
     			this.reset();
@@ -269,13 +293,24 @@
     			localStorage.setItem("pacientes", JSON.stringify(pacientes));
     			alert("Sesión guardada correctamente.");
 			});
+			db.ref("sesiones").push({
+    			paciente: pacientes[id].nombre,
+    			fecha: new Date().toLocaleString(),
+    			datosAngulo,
+    			datosFuerza,
+    			maxAngulo,
+    			maxFuerza
+			});
+
 			</script>
 			<script>
 			document.querySelector("a[href='#about']").addEventListener("click", function () {
 
     			const id = localStorage.getItem("pacienteActual");
-
-    			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
+				db.ref("pacientes").once("value").then(snapshot => {
+    				let pacientes = snapshot.val() || {};
+    			// luego generas lista
+				});
 
     // Si no hay pacientes aún, salir
     			if (!pacientes[id]) return;
@@ -302,6 +337,7 @@
 			</script>
 	</body>
 </html>
+
 
 
 
