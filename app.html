@@ -188,6 +188,14 @@
 			document.querySelector("a[href='#work']").addEventListener("click", cargarPacientes);
 			</script>
 			<script>
+			let datosAngulo = [];
+			let datosFuerza = [];
+			let maxAngulo = 0;
+			let maxFuerza = 0;
+
+			let chart = null;
+
+			<script>
 			let chart = null;
 
 			function crearGrafica() {
@@ -276,10 +284,8 @@
 			</script>
 			<script>
 			document.getElementById("btnGuardarSesion").addEventListener("click", function () {
-    
     			let id = localStorage.getItem("pacienteActual");
     			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
-
     			if (!pacientes[id].sesiones) {
         			pacientes[id].sesiones = [];
     			}
@@ -292,38 +298,32 @@
     			});
     			localStorage.setItem("pacientes", JSON.stringify(pacientes));
     			alert("Sesión guardada correctamente.");
-			});
-			db.ref("sesiones").push({
-    			paciente: pacientes[id].nombre,
-    			fecha: new Date().toLocaleString(),
-    			datosAngulo,
-    			datosFuerza,
-    			maxAngulo,
-    			maxFuerza
+				db.ref("sesiones").push({
+    				paciente: pacientes[id].nombre,
+    				fecha: new Date().toLocaleString(),
+    				datosAngulo,
+    				datosFuerza,
+    				maxAngulo,
+    				maxFuerza
+				});
+				alert("Sesión guardada correctamente.");
 			});
 
 			</script>
 			<script>
 			document.querySelector("a[href='#about']").addEventListener("click", function () {
-
-    			const id = localStorage.getItem("pacienteActual");
-				db.ref("pacientes").once("value").then(snapshot => {
-    				let pacientes = snapshot.val() || {};
-    			// luego generas lista
-				});
-
-    // Si no hay pacientes aún, salir
+    			let id = localStorage.getItem("pacienteActual");
+    			let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
     			if (!pacientes[id]) return;
-
     			let sesiones = pacientes[id].sesiones || [];
-
     			let cont = document.getElementById("listaSesiones");
     			cont.innerHTML = "";
 
     			if (sesiones.length === 0) {
         			cont.innerHTML = "<p>No hay sesiones guardadas para este paciente.</p>";
         			return;
-    			}
+    				}
+
     			sesiones.forEach(s => {
         			let li = document.createElement("li");
         			li.innerHTML = `
@@ -334,9 +334,11 @@
         			cont.appendChild(li);
     			});
 			});
+
 			</script>
 	</body>
 </html>
+
 
 
 
